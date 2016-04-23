@@ -1,41 +1,71 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: newage
- * Date: 22.04.16
- * Time: 11:39
- */
 
 namespace YellTest\Shapes;
 
 
-
-
+/**
+ * Class Circle
+ * @package YellTest\Shapes
+ */
 class Circle extends Shape
 {
 
     /**
-     * @var
+     * @var float
      */
-    protected $radius;
+    protected $radius = 0;
 
 
-    public function area()
+    /**
+     * @param array $params
+     */
+    public function initParams($params)
     {
 
-        return M_PI * pow($this->radius(), 2);
+        $this->radius = $params['radius'];
+        $this->color = $params['color'];
+        $this->calculateArea();
+        $this->calculatePerimeter();
     }
 
-    public function perimeter()
+    /**
+     * @return
+     */
+    public function calculateArea()
     {
 
-        return 2 * M_PI * $this->radius();
+        $this->area = M_PI * pow($this->getRadius(), 2);
     }
 
+    /**
+     * @return
+     */
+    public function calculatePerimeter()
+    {
 
-    public function radius()
+        $this->perimeter = 2 * M_PI * $this->getRadius();
+    }
+
+    /**
+     * @return float
+     */
+    public function getRadius()
     {
         return $this->radius;
     }
+
+    /**
+     * @param float $radius
+     */
+    public function setRadius($radius)
+    {
+        $this->radius = $radius;
+    }
+
+    public function getType()
+    {
+        return 'circle';
+    }
+
 
 }

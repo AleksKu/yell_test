@@ -25,7 +25,6 @@ DROP TABLE IF EXISTS `books_authors`;
 CREATE TABLE `books_authors` (
   `book_id` int(11) unsigned NOT NULL,
   `author_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`book_id`,`author_id`),
   KEY `book_key` (`book_id`),
   KEY `author_key` (`author_id`),
   CONSTRAINT `author_key` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,

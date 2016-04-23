@@ -4,24 +4,60 @@
 namespace YellTest\Shapes;
 
 
-class Rectangle extends Figure
+/**
+ * Class Rectangle
+ * @package YellTest\Shapes
+ */
+class Rectangle extends Shape
 {
 
-    protected $width;
+    /**
+     * @var float
+     */
+    protected $width = 0;
 
-    protected $height;
+    /**
+     * @var float
+     */
+    protected $height = 0;
 
 
-    public function area()
+    /**
+     * @param $params
+     *
+     */
+    public function initParams($params)
     {
 
-        return $this->width * $this->height;
+        $this->width = $params['width'];
+        $this->height = $params['height'];
+        $this->color = $params['color'];
+
+        $this->calculateArea();
+        $this->calculatePerimeter();
     }
 
-    public function perimeter()
+    /**
+     * @return
+     */
+    protected function calculateArea()
     {
 
-        return 2 * ($this->width + $this->height);
+        $this->area = $this->width * $this->height;
+    }
+
+    /**
+     * @return
+     */
+    protected function calculatePerimeter()
+    {
+
+        $this->perimeter = 2 * ($this->width + $this->height);
+    }
+
+    public function getType()
+    {
+        return 'rectangle';
     }
 
 }

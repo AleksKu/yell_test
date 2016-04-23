@@ -1,27 +1,35 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: newage
- * Date: 22.04.16
- * Time: 13:57
- */
 
 namespace YellTest\Shapes;
 
 
+/**
+ * Class ShapeFactory
+ * @package YellTest\Shapes
+ */
 class ShapeFactory
 {
 
-    public static function create($shapeType)
+    /**
+     * @param $shapeType
+     * @param $params
+     * @throws \Exception
+     */
+    public static function create($shapeType, $params)
     {
 
-        if(class_exists($shapeType))
-        {
-            return new $shapeType();
-        }
-        else {
-            throw new \Exception("Invalid shape type given.");
+
+        $shapeClass = __NAMESPACE__ . "\\" . ucwords($shapeType);
+
+        if (class_exists($shapeClass)) {
+            $shape = new $shapeClass();
+            $shape->initParams($params);
+            return $shape;
+
+        } else {
+            throw new \InvalidArgumentException("Invalid shape type given.");
         }
     }
+
 
 }

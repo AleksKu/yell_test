@@ -3,7 +3,7 @@
 
 namespace YellTest;
 
-use YellTest\Shapes\DrawingStrategyFactory;
+use YellTest\RenderStrategy\RenderStrategyFactory;
 use YellTest\Shapes\ShapeFactory;
 
 
@@ -11,25 +11,25 @@ class DrawingController
 {
 
     /**
-     * @var DrawingStrategy
+     * @var RenderStrategy
      */
-    protected $drawingStrategy;
+    protected $RenderStrategy;
 
     /**
      * @var string
      */
-    protected $drawingStrategyName = 'string';
+    protected $RenderStrategyName = 'string';
 
 
     /**
-     * DrawingController constructor.
-     * @param DrawingStrategy string
+     * RenderController constructor.
+     * @param  string
      */
-    function __construct( $drawingStrategyName = 'string')
+    function __construct( $RenderStrategyName = 'string')
     {
-        $this->drawingStrategyName = $drawingStrategyName;
+        $this->RenderStrategyName = $RenderStrategyName;
 
-       $this->drawingStrategy =  DrawingStrategyFactory::create($this->drawingStrategyName);
+       $this->RenderStrategy =  RenderStrategyFactory::create($this->RenderStrategyName);
 
     }
 
@@ -41,10 +41,10 @@ class DrawingController
     {
         foreach ($shapesParams as $shapeParams) {
             $shape = ShapeFactory::create($shapeParams['type'], $shapeParams['params']);
-            $this->drawingStrategy->add($shape);
+            $this->RenderStrategy->add($shape);
         }
 
-        $this->drawingStrategy->render();
+        $this->RenderStrategy->render();
     }
 
 

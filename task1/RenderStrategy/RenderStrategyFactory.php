@@ -6,20 +6,20 @@
  * Time: 18:15
  */
 
-namespace YellTest\Shapes;
+namespace YellTest\RenderStrategy;
 
 
-class DrawingStrategyFactory
+class RenderStrategyFactory
 {
     /**
      * @param $strategyType
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public static function create($strategyType)
     {
 
 
-        $strategyClass = __NAMESPACE__ . "\\Drawing" . ucwords($strategyType).'Strategy';
+        $strategyClass = __NAMESPACE__ . "\\Render" . ucwords($strategyType);
 
         if (class_exists($strategyClass)) {
             $stategy = new $strategyClass();

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace YellTest\Shapes;
+namespace YellTest\RenderStrategy;
 
 
 /**
- * Class DrawingPointsStrategy
+ * Class RenderPointsStrategy
  * @package YellTest\Shapes
  */
-class DrawingStringStrategy extends DrawingStrategy
+class RenderString extends RenderStrategy
 {
 
 

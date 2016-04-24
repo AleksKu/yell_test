@@ -9,7 +9,7 @@ $shapes = [
 ];
 
 
-$controller = new \YellTest\DrawingController('string');
+$controller = new \YellTest\DrawingController();
 $controller->renderShapes($shapes);
 
 

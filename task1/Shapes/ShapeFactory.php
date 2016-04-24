@@ -13,7 +13,7 @@ class ShapeFactory
     /**
      * @param $shapeType
      * @param $params
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public static function create($shapeType, $params)
     {

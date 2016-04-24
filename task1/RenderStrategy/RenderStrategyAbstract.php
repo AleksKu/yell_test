@@ -38,4 +38,12 @@ use YellTest\Shapes\Shape;
 
 
      }
+
+     /**
+      * @return Shape
+      */
+     public function getShape()
+     {
+         return $this->shape;
+     }
  }

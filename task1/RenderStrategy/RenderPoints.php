@@ -8,7 +8,7 @@ namespace YellTest\RenderStrategy;
  * Class RenderPointsStrategy
  * @package YellTest\Shapes
  */
-class RenderString extends RenderStrategyAbstract
+class RenderPoints extends RenderStrategyAbstract
 {
 
 
@@ -19,7 +19,7 @@ class RenderString extends RenderStrategyAbstract
     {
 
         parent::render();
-        echo "render " . $this->shape->getType() . " as string. \n";
+        echo "render " . $this->shape->getType() . " as points \n";
 
     }
 

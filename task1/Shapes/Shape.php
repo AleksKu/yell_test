@@ -12,9 +12,10 @@ abstract class Shape
 
 
     /**
+     * todo cast to Color type
      * @var mixed
      */
-    protected $color;
+    protected $color = '#000';
 
     /**
      * @var float
@@ -28,21 +29,34 @@ abstract class Shape
 
 
     /**
+     * Factory method
+     * @param $type
      * @param $params
      * @return mixed
-     *
-     * @todo validate params
      */
-    public abstract function initParams($params);
+    public static function factory($type, $params)
+    {
+        $shapeClass = __NAMESPACE__ . "\\Types\\" . ucwords($type);
+
+        if (class_exists($shapeClass)) {
+            $shape = $shapeClass::create($params);
+
+            return $shape;
+
+        } else {
+            throw new \InvalidArgumentException("Invalid shape type given.");
+        }
+    }
 
     /**
      * calculate area
+     * @return float
      */
     protected abstract function calculateArea();
 
     /**
      * calculate perimeter
-     * @return
+     * @return float
      */
     protected abstract function calculatePerimeter();
 

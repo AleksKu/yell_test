@@ -1,33 +1,39 @@
 <?php
 
-use YellTest\RenderStrategy\RenderStrategyFactory;
+use YellTest\RenderStrategy\RenderString;
+use YellTest\Shapes\Shape;
 
 
 class RenderStrategyTest extends PHPUnit_Framework_TestCase
 {
 
-    public function testCreate()
+    public function testRenderLogic()
     {
-        $type = 'string';
+       $render = new RenderString();
 
+        $this->setExpectedException('LogicException');
 
-        $strategy = RenderStrategyFactory::create($type);
-
-        $this->assertInstanceOf('YellTest\RenderStrategy\RenderStringStrategy', $strategy);
+        $render->render();
     }
 
-    public function testCreateInvalidShape()
+
+    public function testRender()
     {
-        $type = 'invalid';
+        $render = new RenderString();
+
+        $type = 'circle';
+        $params = ['radius' => 1, 'color' => 'red'];
+
+        $shape = Shape::factory($type, $params);
+        
+        $render->setShape($shape);
 
 
-
-        $this->setExpectedException('InvalidArgumentException');
-
-        RenderStrategyFactory::create($type);
-
-
+        $this->expectOutputString("render circle as string. \n");
+        $render->render();
     }
+
+
 
 
 }

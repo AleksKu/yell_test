@@ -1,16 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: newage
- * Date: 24.04.16
- * Time: 12:34
- */
+
 
 namespace YellTest;
 
 use YellTest\RenderStrategy\RenderStrategyInterface;
 use YellTest\RenderStrategy\RenderString;
 use YellTest\Shapes\Shape;
+use SplQueue;
 
 /**
  * Class  for rendering collection a shapes
@@ -20,43 +16,65 @@ class Drawing
 {
 
     /**
-     * @var array
+     *
+     * Shapes queue for render
+     * @var SplQueue
      */
-    protected $shapes = [];
+    protected $shapesQueue;
 
     /**
-     * Default render strategy = string
+     *
      * @var RenderStrategyInterface
      */
     protected $render;
 
-    protected $renderDefault = RenderString::class;
+    /**
+     * Default render strategy = string
+     * @var
+     */
+    protected static $renderDefault = RenderString::class;
 
-    public function __construct(RenderStrategyInterface $renderStrategy = null)
+    public function __construct()
     {
-        if($renderStrategy instanceof  RenderStrategyInterface)
-            $this->render = $renderStrategy;
-        else
-            $this->render = new $this->renderDefault;
+
+        $this->shapesQueue = new SplQueue();
+
+        $this->render = new static::$renderDefault;
+    }
+
+    
+    public function setRenderStrategy(RenderStrategyInterface $renderStrategy)
+    {
+        $this->render = $renderStrategy;
     }
 
 
     /**
-     *
+     * render all shapes
      */
-    public  function renderAll()
+    public function renderAll()
     {
-        foreach ($this->shapes as $shape)
-        {
+
+        $this->shapesQueue->setIteratorMode(SplQueue::IT_MODE_DELETE);
+        foreach ($this->shapesQueue as $shape) {
             $this->render->setShape($shape)->render();
         }
     }
 
     /**
+     * add shape to queue
      * @param Shape $shape
      */
     public function add(Shape $shape)
     {
-        $this->shapes[] = $shape;
+        $this->shapesQueue->enqueue($shape);
+    }
+
+    /**
+     * @return \SplQueue
+     */
+    public function getShapesQueue()
+    {
+        return $this->shapesQueue;
     }
 }

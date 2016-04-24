@@ -18,6 +18,8 @@ interface RenderStrategyInterface
      */
     public function render();
 
-    public function setShape(Shape $shpahe);
+    public function setShape(Shape $shape);
+
+    public function getShape();
 
 }

@@ -20,7 +20,7 @@ class RenderImage extends RenderStrategyAbstract
     {
 
         parent::render();
-        echo "render " . $this->shape->getType() . " as image. Area: " . $this->shape->getArea() . " \n";
+        echo "render " . $this->shape->getType() . " as image \n";
 
 
     }

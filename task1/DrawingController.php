@@ -4,7 +4,8 @@
 namespace YellTest;
 
 use YellTest\RenderStrategy\RenderStrategyInterface;
-use YellTest\Shapes\ShapeFactory;
+use YellTest\Shapes\Shape;
+
 
 
 class DrawingController
@@ -24,13 +25,16 @@ class DrawingController
 
     /**
      * RenderController constructor.
-     * @param  string
+     * @param  RenderStrategyInterface
      */
-    function __construct(RenderStrategyInterface $renderStrategy = null)
+    function __construct()
     {
-        $this->drawing = new Drawing($renderStrategy);
+        $this->drawing = new Drawing();
 
     }
+
+
+
 
     /**
      * @param array $shapesParams
@@ -44,7 +48,7 @@ class DrawingController
             throw new \InvalidArgumentException('Invalid request params given.');
 
         foreach ($shapesParams as $shapeParams) {
-            $shape = ShapeFactory::create($shapeParams['type'], $shapeParams['params']);
+            $shape = Shape::factory($shapeParams['type'], $shapeParams['params']);
             $this->drawing->add($shape);
         }
 
@@ -61,6 +65,22 @@ class DrawingController
 
         $this->isValidRequest = true;
         return $request;
+    }
+
+    /**
+     * @return Drawing
+     */
+    public function getDrawing()
+    {
+        return $this->drawing;
+    }
+
+    /**
+     * @param Drawing $drawing
+     */
+    public function setDrawing(Drawing $drawing)
+    {
+        $this->drawing = $drawing;
     }
 
 

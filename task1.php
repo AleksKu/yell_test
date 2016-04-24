@@ -10,6 +10,9 @@ $shapes = [
 
 
 $controller = new \YellTest\DrawingController();
+
+$controller->getDrawing()->setRenderStrategy(new \YellTest\RenderStrategy\RenderPoints());
+
 $controller->renderShapes($shapes);
 
 

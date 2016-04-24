@@ -8,7 +8,7 @@ namespace YellTest\RenderStrategy;
  * Class RenderPointsStrategy
  * @package YellTest\Shapes
  */
-class RenderString extends RenderStrategy
+class RenderString extends RenderStrategyAbstract
 {
 
 
@@ -18,9 +18,9 @@ class RenderString extends RenderStrategy
     public function render()
     {
 
-        foreach ($this->shapes as $shape) {
-            echo "render " . $shape->getType() . " as string. Area: " . $shape->getArea() . " \n";
-        }
+        parent::render();
+        echo "render " . $this->shape->getType() . " as string. Area: " . $this->shape->getArea() . " \n";
+
     }
 
 

@@ -3,7 +3,7 @@
 
 namespace YellTest;
 
-use YellTest\RenderStrategy\RenderStrategyFactory;
+use YellTest\RenderStrategy\RenderStrategyInterface;
 use YellTest\Shapes\ShapeFactory;
 
 
@@ -11,25 +11,24 @@ class DrawingController
 {
 
     /**
-     * @var RenderStrategy
+     * @var Drawing
      */
-    protected $RenderStrategy;
+    protected $drawing;
+
 
     /**
-     * @var string
+     * @var bool
      */
-    protected $RenderStrategyName = 'string';
+    protected $isValidRequest = false;
 
 
     /**
      * RenderController constructor.
      * @param  string
      */
-    function __construct( $RenderStrategyName = 'string')
+    function __construct(RenderStrategyInterface $renderStrategy = null)
     {
-        $this->RenderStrategyName = $RenderStrategyName;
-
-       $this->RenderStrategy =  RenderStrategyFactory::create($this->RenderStrategyName);
+        $this->drawing = new Drawing($renderStrategy);
 
     }
 
@@ -39,12 +38,29 @@ class DrawingController
      */
     public function renderShapes($shapesParams = [])
     {
+        $shapesParams = $this->validateRequest($shapesParams);
+
+        if ($this->isValidRequest === false)
+            throw new \InvalidArgumentException('Invalid request params given.');
+
         foreach ($shapesParams as $shapeParams) {
             $shape = ShapeFactory::create($shapeParams['type'], $shapeParams['params']);
-            $this->RenderStrategy->add($shape);
+            $this->drawing->add($shape);
         }
 
-        $this->RenderStrategy->render();
+        $this->drawing->renderAll();
+    }
+
+    /**
+     * todo implement validation
+     * @param $request
+     * @return array
+     */
+    protected function validateRequest($request)
+    {
+
+        $this->isValidRequest = true;
+        return $request;
     }
 
 

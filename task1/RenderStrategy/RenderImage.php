@@ -7,8 +7,10 @@ namespace YellTest\RenderStrategy;
  * Class RenderImageStrategy
  * @package YellTest\Shapes
  */
-class RenderImage extends RenderStrategy
+class RenderImage extends RenderStrategyAbstract
 {
+
+    protected $shape;
 
 
     /**
@@ -17,9 +19,10 @@ class RenderImage extends RenderStrategy
     public function render()
     {
 
-        foreach ($this->shapes as $shape) {
-            echo "render " . $shape->getType() . " as image \n";
-        }
+        parent::render();
+        echo "render " . $this->shape->getType() . " as image. Area: " . $this->shape->getArea() . " \n";
+
+
     }
 
 
